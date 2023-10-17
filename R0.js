@@ -1,9 +1,9 @@
-class R0 {
+let LivingCreature = require("./LivingCreature");
+
+module.exports = class R0 extends LivingCreature {
     constructor(x,y,index) {
-        this.x = x;
-        this.y = y;
+        super(x,y,index)
         this.energy = 10;
-        this.index = index;
         this.directions = [];
     }
 
