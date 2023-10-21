@@ -5,7 +5,7 @@ const sideX = 30;
 const sideY = 30;
 
 function setup() {
-    createCanvas(matrix[0].length * side, matrix.length * side);
+    createCanvas(sideX * side, sideY * side);
     background('#acacac'); 
  }
 
@@ -39,3 +39,16 @@ function drawgame(matrix) {
 }
 
 socket.on( "update matrix" , drawgame )
+
+let pauseBtn = document.getElementById("button");
+
+console.log(pauseBtn);
+
+pauseBtn.addEventListener('click',handle);
+
+let pause = false;
+function handle (){
+    pause = !pause
+    console.log("clicked")
+    socket.emit("pause game" , pause )
+}

@@ -142,7 +142,20 @@ function playGame() {
 io.on("connection", function (socket) {
     socket.emit("update matrix", matrix)
     initgame()
+
+    socket.on("pause game" , pause)
 })
+
+function pause(ifPaused) {
+    if(ifPaused){
+        clearInterval(intName)
+
+    } else {
+        startinterval()
+    }
+}
+
 server.listen(3000, function () {
     console.log("Example is running on port 3000");
 });
+
