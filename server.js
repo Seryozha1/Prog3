@@ -2,6 +2,10 @@ const express = require("express");
 const app = express();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
+app.use(express.static('.'))
+app.get('/', function(req, res){
+res.redirect("index.html")
+})
 
 
 let Grass = require("./class")
@@ -20,6 +24,8 @@ r0Arr = [];
 const sideX = 30;
 const sideY = 30;
 const speed = 300;
+
+
 
 function random(min, max) {
     if (min === undefined && max === undefined) {
@@ -52,7 +58,7 @@ for (let i = 0; i < sideY; i++) {
 //...
 
 
-console.log(matrix);
+
 
 function initgame() {
     kerparner(150, 1)
@@ -62,6 +68,9 @@ function initgame() {
     kerparner(15, 5)
     startinterval()
     initArrays()
+
+    console.log(matrix);
+    
 }
 
 
@@ -130,20 +139,10 @@ function playGame() {
     io.emit("update matrix" , matrix)
 }
 
-app.use(express.static("."));
-
-app.get("/", function (req, res) {
-    res.redirect("index.html");
-
-});
-
-app.listen(3000, function () {
-
-    console.log("Example is running on port 3000");
-
-});
-
 io.on("connection", function (socket) {
     socket.emit("update matrix", matrix)
     initgame()
 })
+server.listen(3000, function () {
+    console.log("Example is running on port 3000");
+});

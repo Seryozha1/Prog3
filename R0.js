@@ -47,8 +47,7 @@ module.exports = class R0 extends LivingCreature {
 
     move() {
         this.energy--
-        let emptyCells = this.chooseCell(0)
-        let newCell = random(emptyCells)
+        let newCell = this.selectRandomCell(0)
         if (newCell) {
             let newX = newCell[0]
             let newY = newCell[1]

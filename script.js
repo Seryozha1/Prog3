@@ -4,17 +4,10 @@ let side = 30;
 const sideX = 30;
 const sideY = 30;
 
-// function setup() {
-//      for (let i = 0;i < n; i++){
-//          matrix.push([])
-//          for(let j = 0; j < m; j++){
-//              matrix[i].push(0)
-//          }
-//      }
-
-//     createCanvas(matrix[0].length * side, matrix.length * side);
-//     background('#acacac'); 
-//  }
+function setup() {
+    createCanvas(matrix[0].length * side, matrix.length * side);
+    background('#acacac'); 
+ }
 
 function drawgame(matrix) {
 

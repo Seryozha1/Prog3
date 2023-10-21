@@ -37,8 +37,7 @@ module.exports = class Tp extends LivingCreature {
     }
 
     eat() {
-        let foods = this.chooseCell(1,2,3)
-        let food = random(foods)
+        let food = this.selectRandomCell(1,2,3)
         if (food) {
             this.energy++;
             matrix[this.y][this.x] = 0
@@ -86,8 +85,7 @@ module.exports = class Tp extends LivingCreature {
 
     move() {
         this.energy++
-        let emptyCells = this.chooseCell(0)
-        let newCell = random(emptyCells)
+        let newCell = this.selectRandomCell(0)
         if (newCell) {
             let newX = newCell[0]
             let newY = newCell[1]
