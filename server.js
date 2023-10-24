@@ -2,9 +2,10 @@ const express = require("express");
 const app = express();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
+module.exports = io
 app.use(express.static('.'))
-app.get('/', function(req, res){
-res.redirect("index.html")
+app.get('/', function (req, res) {
+    res.redirect("index.html")
 })
 
 
@@ -70,7 +71,7 @@ function initgame() {
     initArrays()
 
     console.log(matrix);
-    
+
 }
 
 
@@ -136,24 +137,36 @@ function playGame() {
     for (var i in r0Arr) {
         r0Arr[i].move();
     }
-    io.emit("update matrix" , matrix)
+    io.emit("update matrix", matrix)
 }
 
 io.on("connection", function (socket) {
     socket.emit("update matrix", matrix)
     initgame()
 
-    socket.on("pause game" , pause)
+    socket.on("pause game", pause)
+
+    socket.on("resetgame", reset)
 })
 
+function reset() {
+    initgame()
+}
 function pause(ifPaused) {
-    if(ifPaused){
+    if (ifPaused) {
         clearInterval(intName)
 
     } else {
         startinterval()
     }
 }
+
+statobj = {
+    grass:0,
+    grasseater:0,
+    predator:0,
+}
+
 
 server.listen(3000, function () {
     console.log("Example is running on port 3000");

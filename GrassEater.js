@@ -1,4 +1,5 @@
 let LivingCreature = require("./LivingCreature");
+const io = require('./server');
 
 module.exports = class GrassEater extends LivingCreature {
     constructor(x,y,index) {
@@ -30,6 +31,9 @@ module.exports = class GrassEater extends LivingCreature {
             var newGrassE = new GrassEater(newCell[0], newCell[1], this.index);
             grassEaterArr.push(newGrassE);
             matrix[newCell[1]][newCell[0]] = 2;
+
+            statobj.grasseater++
+            io.emit("updstats" , statobj)
         }
     }
         eat() {

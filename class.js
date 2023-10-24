@@ -1,4 +1,5 @@
 let LivingCreature = require("./LivingCreature");
+const io = require('./server');
 
 module.exports = class Grass extends LivingCreature {
 
@@ -10,6 +11,9 @@ module.exports = class Grass extends LivingCreature {
             grassArr.push(newGrass);
             matrix[newCell[1]][newCell[0]] = this.index;
             this.multiply = 0;
+
+            statobj.grass++
+            io.emit("updstats" , statobj)
         }
     }
 }

@@ -52,3 +52,27 @@ function handle (){
     console.log("clicked")
     socket.emit("pause game" , pause )
 }
+
+
+let resetBtn = document.getElementById("resetbutton");
+
+resetBtn.addEventListener("click" , reset)
+
+function reset() {
+    matrix = []
+    socket.emit("resetgame")
+}
+let grass = document.getElementById("grass")
+console.log(grass);
+
+let grasseater = document.getElementById("grasseater")
+let predator = document.getElementById("predator")
+
+socket.on("updstats", addstatsobj)
+
+function addstatsobj(statobj) {
+    document.getElementById("grass").innerHTML = "nuber of grass: " + statobj.grass
+    document.getElementById("grasseater").innerHTML = "nuber of grass: " + statobj.grasseater
+    document.getElementById("predator").innerHTML = "nuber of grass: " + statobj.predator
+}
+
