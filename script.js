@@ -16,6 +16,19 @@ function drawgame(matrix) {
  
             if (matrix[y][x] == 1) {
                 fill("green");
+
+                if (r == 1) {
+                    fill("lightgreen")
+                }
+                if(r == 2){
+                    fill("orange")
+                }
+                if(r == 3){
+                    fill("white")
+                }
+                if(r == 4){
+                    fill("pink")
+                }
             }
             else if (matrix[y][x] == 0) {
                 fill("#acacac");
@@ -31,6 +44,9 @@ function drawgame(matrix) {
             }
             else if (matrix[y][x]==5){
                 fill("black")
+            }
+            else if (matrix[y][x]==6){
+                fill("#999900")
             }
          
             rect(x * side, y * side, side, side);
@@ -71,8 +87,34 @@ let predator = document.getElementById("predator")
 socket.on("updstats", addstatsobj)
 
 function addstatsobj(statobj) {
-    document.getElementById("grass").innerHTML = "nuber of grass: " + statobj.grass
-    document.getElementById("grasseater").innerHTML = "nuber of grass: " + statobj.grasseater
-    document.getElementById("predator").innerHTML = "nuber of grass: " + statobj.predator
+    grass.innerHTML = "nuber of grass: " + statobj.grass
+    grasseater.innerHTML = "nuber of grasseater: " + statobj.grasseater
+    predator.innerHTML = "nuber of predator: " + statobj.predator
+}
+
+let exanakBtn = document.getElementById("exanakBtn");
+let exanak = document.getElementById("exanak");
+exanakBtn.addEventListener("click" , changeEx);
+let r = 0;
+function changeEx(){
+    r++
+    if (r >= 5) {
+        r = 1
+    }
+    if(r == 1){
+        exanak.innerHTML = "amar"
+    }
+    if(r == 2){
+        exanak.innerHTML = "ashun"
+    }
+    if(r == 3){
+        exanak.innerHTML = "dzmer"
+    }
+    if (r == 4) {
+        exanak.innerHTML = "garun"
+    }
+
+    console.log(r);
+    socket.emit("exanak" , r)
 }
 

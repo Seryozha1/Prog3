@@ -39,5 +39,7 @@ module.exports =  class LivingCreature {
         const randomIndex = Math.floor(Math.random() * cells.length);
         return cells[randomIndex];
         }
+        
 }
+
 

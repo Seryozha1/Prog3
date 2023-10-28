@@ -8,7 +8,7 @@ app.get('/', function (req, res) {
     res.redirect("index.html")
 })
 
-
+let SpawnerG = require("./spawnerG")
 let Grass = require("./class")
 let GrassEater = require("./GrassEater")
 let Predator = require("./Predator")
@@ -16,6 +16,7 @@ let Tp = require("./TP")
 let R0 = require("./R0")
 
 matrix = [];
+spawnerGArr = [];
 grassArr = [];
 grassEaterArr = []
 predatorArr = [];
@@ -24,7 +25,7 @@ r0Arr = [];
 
 const sideX = 30;
 const sideY = 30;
-const speed = 300;
+let speed = 300;
 
 
 
@@ -67,6 +68,7 @@ function initgame() {
     kerparner(5, 3)
     kerparner(7, 4)
     kerparner(15, 5)
+    kerparner(1,6)
     startinterval()
     initArrays()
 
@@ -82,6 +84,7 @@ function initArrays() {
     predatorArr = [];
     tpArr = [];
     r0Arr = [];
+    spawnerGArr = [];
     for (var y = 0; y < matrix.length; ++y) {
         for (var x = 0; x < matrix[y].length; ++x) {
             if (matrix[y][x] == 1) {
@@ -105,6 +108,11 @@ function initArrays() {
             else if (matrix[y][x] == 5) {
                 var r0 = new R0(x, y, 5)
                 r0Arr.push(r0)
+
+            }
+            else if (matrix[y][x] == 6) {
+                var spawner = new SpawnerG(x, y, 6)
+                spawnerGArr.push(spawner)
 
             }
         }
@@ -137,6 +145,9 @@ function playGame() {
     for (var i in r0Arr) {
         r0Arr[i].move();
     }
+    for (var i in spawnerGArr) {
+        spawnerGArr[i].mul();
+    }
     io.emit("update matrix", matrix)
 }
 
@@ -147,8 +158,33 @@ io.on("connection", function (socket) {
     socket.on("pause game", pause)
 
     socket.on("resetgame", reset)
-})
 
+    socket.on("exanak" , changeEx)
+})
+function changeEx(r){
+    if (r == 1) {
+        // amar
+        speed = 10
+        console.log('speed', speed);
+        
+    }
+    if (r == 2){
+        // ashun
+        speed = 200
+        console.log('speed', speed);
+    }
+    if (r == 3){
+        // dzmer
+        speed = 1000
+        console.log('speed', speed);
+    }
+    if (r == 4){
+        // garun
+       speed = 250
+       console.log('speed', speed);
+    }
+    startinterval()
+}
 function reset() {
     initgame()
 }

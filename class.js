@@ -2,7 +2,6 @@ let LivingCreature = require("./LivingCreature");
 const io = require('./server');
 
 module.exports = class Grass extends LivingCreature {
-
     mul() {
         this.multiply++;
         var newCell = this.selectRandomCell(this.chooseCell(0));
